@@ -6,7 +6,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3001/api/persons
+GET https://muddy-thunder-6622.fly.dev/api/persons
 ###
 POST http://localhost:3001/api/persons
 Content-Type: application/json
