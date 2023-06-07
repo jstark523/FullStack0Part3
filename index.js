@@ -57,16 +57,9 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-
-  const person = people.find(p => p.id === id)
-
-  if(person){
+  Person.findById(Number(request.params.id)).then(person =>{
     response.json(person)
-  }
-  else{
-    return response.status(404).send("not found")
-  }
+  })
 })
 
 app.post('/api/persons', (request, response) => {
