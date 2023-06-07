@@ -1,9 +1,10 @@
 require('dotenv').config()
-const Person = require('./models/person')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
+const Person = require('./models/person')
+
 
 app.use(cors())
 
@@ -77,23 +78,15 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  if(people.find(person => person.name === body.name)){
-    return response.status(409).json({
-      error: 'name already exists in phonebook'
-    })
-  }
-
-  const id = Math.random() * 1000
-
-  const person = {
-    id: id,
+  const person = new Person({
     name: body.name,
     number: body.number
-  }
+  })
 
-  people = people.concat(person)
+  person.save().then(savedPerson =>{
+    response.json(savedPerson)
+  })
 
-  response.json(person)
 })
 
 app.delete('/api/persons/:id', (request, response) => {
